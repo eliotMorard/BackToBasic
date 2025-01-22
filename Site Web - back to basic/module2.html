@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 2 : Manipulations en C pour les Microcontrôleurs</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- CSS et JS de Prism.js -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- En-tête avec un bandeau de couleur et un logo -->
+  <header class="relative bg-blue-600 text-white py-12">
+    <div class="absolute top-4 left-4">
+      <a href="index.html" class="flex items-center space-x-2">
+        <!-- Icône de maison -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white bg-blue-700 p-1 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 10l9-7 9 7v11a1 1 0 01-1 1h-6a1 1 0 01-1-1v-5a1 1 0 00-1-1h-2a1 1 0 00-1 1v5a1 1 0 01-1 1H4a1 1 0 01-1-1V10z" />
+        </svg>
+      </a>
+    </div>
+    <div class="text-center">
+      <h1 class="text-3xl md:text-4xl font-bold px-4">Module 2 : Manipulations en C pour les Microcontrôleurs</h1>
+      <p class="text-lg mt-2">Découvrez les bases des opérations en C pour configurer et manipuler vos microcontrôleurs.</p>
+    </div>
+  </header>
+
+  <!-- Contenu principal -->
+  <main class="p-6 max-w-4xl mx-auto">
+
+    <!-- Section : Opérations sur les bits -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">Opérations sur les bits : Les bases indispensables</h2>
+      <p class="text-gray-700 text-justify leading-7">
+        En programmation C, les opérations sur les bits sont essentielles pour manipuler directement les registres ou configurer des périphériques matériels. Ces opérations permettent d'activer, désactiver ou basculer des bits spécifiques dans un registre. Voici les trois opérations fondamentales et leur utilisation typique :
+      </p>
+
+      <!-- Opération : Mettre un bit à 1 -->
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold text-blue-500 mb-2">1. Mettre un bit à 1</h3>
+        <pre class="rounded overflow-x-auto">
+          <code class="language-c">registre |= (1 << position);  // Active le bit à la position spécifiée</code>
+        </pre>
+        <p class="text-gray-700 text-justify mt-2">
+          Cette opération utilise l'opérateur OR bit à bit (<code>|=</code>) pour activer un bit à une position donnée. 
+          Par exemple, si <code>position = 3</code>, le troisième bit du registre sera mis à 1, sans affecter les autres bits.
+        </p>
+      </div>
+
+      <!-- Opération : Mettre un bit à 0 -->
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold text-blue-500 mb-2">2. Mettre un bit à 0</h3>
+        <pre class="rounded overflow-x-auto">
+          <code class="language-c">registre &= ~(1 << position);  // Désactive le bit à la position spécifiée</code>
+        </pre>
+        <p class="text-gray-700 text-justify mt-2">
+          Ici, l'opérateur AND bit à bit (<code>&=</code>) est combiné avec un complément (<code>~</code>) pour désactiver 
+          un bit spécifique. Par exemple, si <code>position = 3</code>, le troisième bit sera mis à 0, tandis que les autres bits restent inchangés.
+        </p>
+      </div>
+
+      <!-- Opération : Basculer un bit -->
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold text-blue-500 mb-2">3. Basculer un bit</h3>
+        <pre class="rounded overflow-x-auto">
+          <code class="language-c">registre ^= (1 << position);  // Inverse l'état du bit à la position spécifiée</code>
+        </pre>
+        <p class="text-gray-700 text-justify mt-2">
+          L'opérateur XOR bit à bit (<code>^=</code>) permet d'inverser l'état d'un bit. Si le bit est 0, il devient 1 ; 
+          s'il est 1, il devient 0. Par exemple, si <code>position = 3</code>, le troisième bit du registre sera inversé.
+        </p>
+      </div>
+    </section>
+
+    <!-- Section : Manipulation des registres -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">Manipulation des registres en C</h2>
+      <p class="text-gray-700 text-justify leading-7">
+        Après avoir compris les bases des opérations sur les bits, nous pouvons maintenant aborder la manipulation directe des registres en langage C. Ces opérations sont fondamentales pour configurer les périphériques matériels et interagir avec un microcontrôleur.
+      </p>
+      <pre class="rounded overflow-x-auto">
+        <code class="language-c">LPC_GPIO_PORT->DIR0 |= (1 << 10);  // Configure la broche P0_10 comme sortie</code>
+      </pre>
+      <p class="text-gray-700 text-justify mt-2">
+        Cet exemple montre comment configurer une broche GPIO (General Purpose Input/Output) pour qu’elle fonctionne comme une sortie. 
+        En activant le bit correspondant dans le registre <code>DIR0</code>, vous indiquez au microcontrôleur que cette broche est utilisée pour envoyer des signaux.
+      </p>
+    </section>
+    <!-- Tutoriels de manipulation des bits -->
+<section class="mb-10">
+  <h2 class="text-2xl font-semibold text-blue-600 mb-4">Manipulation des bits : Tutoriels pratiques</h2>
+  <p class="text-gray-700 text-justify leading-7 mb-6">
+    Les microcontrôleurs utilisent des registres pour configurer et contrôler leur fonctionnement. Ces registres sont souvent manipulés à l’aide d’opérations bit à bit, comme définir un bit à 1, le mettre à 0, ou inverser son état. Voici quelques tutoriels pour maîtriser ces opérations.
+  </p>
+
+  <!-- Mettre un bit à 1 -->
+  <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
+    <h3 class="text-lg font-semibold text-gray-800">1. Mettre un bit à 1</h3>
+    <p class="text-gray-700 text-justify leading-7 mt-2">
+      Pour forcer un bit spécifique à 1 sans modifier les autres bits, on utilise l’opération OR (|) avec un masque.
+    </p>
+    <pre class="bg-gray-900 rounded p-4 text-white text-sm overflow-x-auto">
+      <code class="language-c">// Exemple : Mettre le bit 3 à 1
+#define BIT_3 (1 << 3)
+registre |= BIT_3;  // Met le bit 3 à 1 sans affecter les autres
+      </code>
+    </pre>
+  </div>
+
+  <!-- Mettre un bit à 0 -->
+  <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
+    <h3 class="text-lg font-semibold text-gray-800">2. Mettre un bit à 0</h3>
+    <p class="text-gray-700 text-justify leading-7 mt-2">
+      Pour forcer un bit spécifique à 0, on utilise l’opération AND (&) avec l’inverse d’un masque.
+    </p>
+    <pre class="bg-gray-900 rounded p-4 text-white text-sm overflow-x-auto">
+      <code class="language-c">// Exemple : Mettre le bit 3 à 0
+#define BIT_3 (1 << 3)
+registre &= ~BIT_3;  // Met le bit 3 à 0 sans affecter les autres
+      </code>
+    </pre>
+  </div>
+
+  <!-- Inverser un bit -->
+  <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
+    <h3 class="text-lg font-semibold text-gray-800">3. Inverser un bit</h3>
+    <p class="text-gray-700 text-justify leading-7 mt-2">
+      Pour inverser l’état d’un bit spécifique, on utilise l’opération XOR (^).
+    </p>
+    <pre class="bg-gray-900 rounded p-4 text-white text-sm overflow-x-auto">
+      <code class="language-c">// Exemple : Inverser le bit 3
+#define BIT_3 (1 << 3)
+registre ^= BIT_3;  // Inverse l'état du bit 3
+      </code>
+    </pre>
+  </div>
+
+  <!-- Appliquer un masque pour extraire des bits -->
+  <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
+    <h3 class="text-lg font-semibold text-gray-800">4. Appliquer un masque pour extraire des bits</h3>
+    <p class="text-gray-700 text-justify leading-7 mt-2">
+      Pour extraire un groupe de bits, on utilise un masque avec l’opération AND (&), puis on décale les bits extraits à droite si nécessaire.
+    </p>
+    <pre class="bg-gray-900 rounded p-4 text-white text-sm overflow-x-auto">
+      <code class="language-c">// Exemple : Extraire les bits 4 à 6
+#define MASK (0b01110000)
+int valeur = (registre & MASK) >> 4;  // Extrait et décale les bits 4 à 6
+      </code>
+    </pre>
+  </div>
+
+  <!-- Ajustements dynamiques -->
+  <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
+    <h3 class="text-lg font-semibold text-gray-800">5. Ajuster dynamiquement plusieurs bits</h3>
+    <p class="text-gray-700 text-justify leading-7 mt-2">
+      En combinant plusieurs opérations, on peut activer et désactiver des bits spécifiques dynamiquement.
+    </p>
+    <pre class="bg-gray-900 rounded p-4 text-white text-sm overflow-x-auto">
+      <code class="language-c">// Exemple : Activer les bits 2 et 4
+#define CONFIG_MASK ((1 << 2) | (1 << 4))
+registre |= CONFIG_MASK;  // Active les bits 2 et 4
+
+// Désactiver les bits 2 et 4
+registre &= ~CONFIG_MASK; // Désactive les bits 2 et 4
+      </code>
+    </pre>
+  </div>
+</section>
+
+  </main>
+
+  <!-- Pied de page -->
+  <footer class="bg-gray-800 text-white text-center p-4 mt-10">
+    <p>&copy; 2025 - Formation Microcontrôleurs, Eliot Morard.</p>
+  </footer>
+
+</body>
+</html>

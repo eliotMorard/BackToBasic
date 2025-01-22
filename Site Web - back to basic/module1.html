@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 1 : Langage C et Microcontrôleurs</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- CSS et JS de Prism.js -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+
+  <!-- En-tête -->
+  <header class="relative bg-blue-600 text-white py-12">
+    <div class="absolute top-4 left-4">
+      <a href="index.html" class="flex items-center space-x-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white bg-blue-700 p-1 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 10l9-7 9 7v11a1 1 0 01-1 1h-6a1 1 0 01-1-1v-5a1 1 0 00-1-1h-2a1 1 0 00-1 1v5a1 1 0 01-1 1H4a1 1 0 01-1-1V10z" />
+        </svg>
+      </a>
+    </div>
+    <div class="text-center">
+      <h1 class="text-3xl md:text-4xl font-bold px-4">Module 1 : Langage C et Microcontrôleurs</h1>
+      <p class="text-lg mt-2">Introduction au langage C comme base pour la programmation embarquée.</p>
+    </div>
+  </header>
+
+  <!-- Contenu principal -->
+  <main class="p-6 max-w-4xl mx-auto">
+    <!-- Introduction -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">Introduction : Pourquoi apprendre le langage C ?</h2>
+      <p class="text-gray-700 leading-7">
+        Vous avez récemment suivi une formation d’une semaine sur le <b>langage C.</b> En tant qu’étudiants déjà expérimentés avec <b>Python</b>, vous vous demandez peut-être pourquoi apprendre un nouveau langage. Python est simple, puissant et largement utilisé. Alors, pourquoi passer à un langage comme C, plus complexe ?
+      </p>
+      <p class="text-gray-700 leading-7">
+        La réponse réside dans leurs différences fondamentales. Python est un langage haut niveau, conçu pour simplifier le développement et accélérer le prototypage. En revanche, le C est un langage bas niveau, compilé, offrant un contrôle total sur la mémoire et les interactions avec le matériel. Cette maîtrise est essentielle pour des applications embarquées où chaque cycle d’horloge, chaque octet de mémoire, compte.
+      </p>
+    </section>
+    <div class="flex justify-center items-center space-x-16 mt-6">
+      <!-- Logo Python -->
+      <img src="images/module1/Python-Symbole.jpg" alt="Logo Python" class="h-48 w-auto max-w-xs">
+    
+      <!-- Logo Langage C -->
+      <img src="images/module1/pngegg.png" alt="Logo Langage C" class="h-48 w-auto max-w-xs">
+    </div>
+
+    <!-- Comparaison C vs Python -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">C vs Python : Une comparaison des performances</h2>
+      <p class="text-gray-700 leading-7">
+        Pour comprendre pourquoi le C est si performant, prenons un exemple concret. Supposons que vous devez effectuer un milliard d’itérations dans une boucle imbriquée. En C, ce programme s’exécute en seulement <b>0,5 seconde</b>, grâce à son efficacité et aux optimisations du compilateur. En comparaison, le même programme en Python prend environ <b>70 secondes</b>. Cela illustre l’impact d’un langage compilé comme le C par rapport à un langage interprété.
+      </p>
+      <p class="text-gray-700 leading-7">
+        Pourtant, Python peut sembler rapide dans certains contextes, comme lors de calculs scientifiques. Pourquoi ? La réponse se trouve dans les bibliothèques que vous utilisez, comme NumPy ou Pandas. Ces bibliothèques sont en réalité écrites en C (et parfois en Fortran), et Python sert simplement d’interface haut niveau. Vous bénéficiez donc des performances du C tout en travaillant avec une syntaxe simple.
+      </p>
+      <div class="flex justify-center mt-6">
+        <video autoplay loop muted playsinline class="rounded shadow-md w-auto max-w-full h-screen">
+          <source src="images/module1/One Billion Nested Loop Iterations in Different Languages.mp4" type="video/mp4">
+          Votre navigateur ne supporte pas la lecture des vidéos.
+        </video>
+      </div>
+      <p class="text-gray-500 text-center text-sm mt-2">Comparaison des performances entre le C et Python.</p>
+      Bien que vous utilisiez Python pour appeler la fonction np.dot, le calcul réel est effectué par un algorithme en C, compilé pour être extrêmement rapide. Vous bénéficiez donc des performances du C tout en ayant la simplicité dans la syntaxe d’un langage haut niveau.
+      <pre class="rounded overflow-x-auto">
+        <code class="language-python">
+          import numpy as np
+          A = np.random.rand(1000, 1000)
+          B = np.random.rand(1000, 1000)
+          C = np.dot(A, B)</code>
+      </pre>
+      <p class="text-gray-500 text-center text-sm mt-2">Fonctions python codées en C.</p>
+    </section>
+
+    <!-- Informatique embarquée -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">L’informatique embarquée : Un domaine omniprésent</h2>
+      <p class="text-gray-700 leading-7">
+        L’informatique embarquée concerne les systèmes électroniques programmables qui effectuent une tâche spécifique. Contrairement aux ordinateurs classiques, ces systèmes sont optimisés pour fonctionner avec des ressources limitées (puissance de calcul, mémoire, énergie). 
+      </p>
+      <p class="text-gray-700 leading-7">
+        Prenons l’exemple d’une voiture moderne : elle contient souvent plus de 100 microcontrôleurs. Chaque puce est dédiée à une fonction précise, comme le déclenchement des airbags ou le contrôle de l’assistance au freinage. Ces systèmes doivent être rapides, fiables et économes en énergie.
+      </p>
+      <p class="text-gray-700 leading-7">
+        Dans l’IoT (Internet des Objets), c'est-à-dire tout les objets connectés fournissant des informations et comminicant via des protocoles spécifiques, la priorité est encore différente : prolonger l’autonomie des appareils. Par exemple, les capteurs connectés fonctionnent parfois pendant des années sur une seule batterie, tout en collectant et transmettant des données critiques. Le but est donc d'avoir un microcontrôleur avec une consommation énergétique très faible et donc d'avoir un code optimisé pour cette tâche.
+      </p>
+    </section>
+    <div class="flex justify-center mt-6">
+      <img src="images/module1/iot.png" alt="" class="h-64 w-auto rounded shadow-md">
+    </div>
+
+    <!-- Ce que nous allons voir -->
+    <section>
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">Ce que nous allons voir dans cette formation</h2>
+      <p class="text-gray-700 leading-7">
+        Dans cette formation d'introduction, nous allons explorer les fondamentaux du langage C et leur application aux microcontrôleurs :
+      </p>
+      <ul class="list-disc list-inside mt-4 space-y-2 text-gray-700">
+        <li>Commandes essentielles en C : Comment manipuler les registres du microcontrôleur.</li>
+        <li>Architecture des microcontrôleurs : Découverte des composants essentiels (CPU, mémoire, interfaces d’E/S).</li>
+        <li>Documents techniques : Comment trouver les informations recherchées dans une grande documentation technique.</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Pied de page -->
+  <footer class="bg-gray-800 text-white text-center p-4 mt-10">
+    <p>&copy; 2025 - Formation Microcontrôleurs, Eliot Morard.</p>
+  </footer>
+
+</body>
+</html>

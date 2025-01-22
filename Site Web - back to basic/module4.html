@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 4 : Naviguer dans une Documentation Technique</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- En-tête -->
+  <header class="relative bg-blue-600 text-white py-12">
+    <div class="absolute top-4 left-4">
+      <a href="index.html" class="flex items-center space-x-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white bg-blue-700 p-1 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 10l9-7 9 7v11a1 1 0 01-1 1h-6a1 1 0 01-1-1v-5a1 1 0 00-1-1h-2a1 1 0 00-1 1v5a1 1 0 01-1 1H4a1 1 0 01-1-1V10z" />
+        </svg>
+      </a>
+    </div>
+    <div class="text-center">
+      <h1 class="text-3xl md:text-4xl font-bold px-4">Module 4 : Naviguer dans une Documentation Technique</h1>
+      <p class="text-lg mt-2">Apprenez à tirer le meilleur parti des documents techniques avancés.</p>
+    </div>
+  </header>
+
+  <!-- Contenu principal -->
+  <main class="p-6 max-w-4xl mx-auto">
+
+    <!-- Introduction -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">1. Pourquoi lire une documentation technique ?</h2>
+      <p class="text-gray-700 text-justify leading-7">
+        Une documentation technique n’est pas un tutoriel. Elle est conçue pour fournir des informations détaillées et précises sur la manière de configurer et d’utiliser un matériel ou un logiciel. Dans le cas du LPCXpresso804, elle décrit chaque module, registre, et fonction de manière méthodique. Même si au premier abord cela peu semblé peu valorisant, savoir naviguer dans ce type de document est une compétence clé et recherchée pour les ingénieurs et chercheurs.
+      </p>
+      <br>
+      <p>
+        Cliquez sur le lien suivant pour télecharger le manuel utilisateur du microcontroleur et parcourez le pour comprendre sa structure. 
+      </p>
+      <br>
+      <a href="images/module4/LPC804_UserManual-1.pdf" 
+   download
+   class="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
+  Télécharger le Manuel Utilisateur (PDF)
+</a>
+    </section>
+
+    <!-- Structure typique d’une section -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">2. Structure typique d’une section</h2>
+      <p class="text-gray-700 text-justify leading-7 mb-4">
+        Chaque section d’une documentation technique suit un formalisme précis :
+      </p>
+      <ul class="list-disc list-inside text-gray-700 leading-7">
+        <li><b>Texte descriptif :</b> Une introduction pour expliquer le rôle ou l’objectif du module.</li>
+        <li><b>Tableau des registres :</b> Une liste des registres associés, avec leurs adresses et descriptions.</li>
+        <li><b>Diagrammes :</b> Des schémas pour illustrer les interactions entre les composants.</li>
+      </ul>
+      <p class="text-gray-700 mt-4">
+        Par exemple, rendez-vous dans la section "GPIO Registers Overview" (page 102). Vous y trouverez une description des registres DIR, SET, et CLR, avec un tableau expliquant leur rôle. Ce tableau est essentiel pour configurer les broches GPIO en entrée ou sortie.
+      </p>
+    </section>
+
+    <!-- Exemple pas à pas -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">3. Exemple pratique : Configurer une broche GPIO</h2>
+      <p class="text-gray-700 text-justify leading-7">
+        Supposons que vous souhaitiez configurer une broche en mode sortie pour contrôler une LED. Voici les étapes à suivre en utilisant la documentation :
+      </p>
+      <ol class="list-decimal list-inside text-gray-700 leading-7 mt-4">
+        <li>Accédez à la section GPIO (page 101).</li>
+        <li>Identifiez le registre <b>DIR</b> pour définir la direction de la broche.</li>
+        <li>Notez que chaque bit correspond à une broche (par exemple, bit 3 pour la broche P0.3).</li>
+        <li>Utilisez l’opération suivante pour configurer la broche P0.3 en sortie :</li>
+      </ol>
+      <pre class="bg-gray-900 rounded p-4 text-white text-sm overflow-x-auto">
+        <code class="language-c">// Configurer la broche P0.3 en sortie
+LPC_GPIO_PORT->DIR[0] |= (1 << 3);
+        </code>
+      </pre>
+    </section>
+
+    <!-- Outils numériques -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">4. Outils numériques pour naviguer rapidement</h2>
+      <p class="text-gray-700 text-justify leading-7">
+        Les outils suivants peuvent vous aider à gagner du temps :
+      </p>
+      <ul class="list-disc list-inside text-gray-700 leading-7">
+        <li><b>Commande Ctrl+F :</b> Recherchez des mots-clés spécifiques comme "GPIO" ou "Timer".</li>
+        <li><b>Surlignage :</b> Utilisez des logiciels comme Adobe Acrobat pour marquer les sections importantes.</li>
+        <li><b>Liens croisés :</b> Vérifiez les références croisées pour naviguer entre les chapitres liés.</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Pied de page -->
+  <footer class="bg-gray-800 text-white text-center p-4 mt-10">
+    <p>&copy; 2025 - Formation Microcontrôleurs, Eliot Morard.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 3 : Architecture d’un Microcontrôleur</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- CSS et JS de Prism.js -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- En-tête -->
+  <header class="relative bg-blue-600 text-white py-12">
+    <div class="absolute top-4 left-4">
+      <a href="index.html" class="flex items-center space-x-2">
+        <!-- Icône de maison -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white bg-blue-700 p-1 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 10l9-7 9 7v11a1 1 0 01-1 1h-6a1 1 0 01-1-1v-5a1 1 0 00-1-1h-2a1 1 0 00-1 1v5a1 1 0 01-1 1H4a1 1 0 01-1-1V10z" />
+        </svg>
+      </a>
+    </div>
+    <div class="text-center">
+      <h1 class="text-3xl md:text-4xl font-bold px-4">Module 3 : Architecture d’un Microcontrôleur</h1>
+      <p class="text-lg mt-2">Construire un microcontrôleur étape par étape.</p>
+    </div>
+  </header>
+
+  <!-- Contenu principal -->
+  <main class="p-6 max-w-4xl mx-auto">
+    <!-- Introduction -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">Introduction</h2>
+      <p class="text-gray-700 text-justify leading-7">
+        Dans ce module, nous allons explorer les étapes nécessaires pour construire un microcontrôleur et comprendre son fonctionnement interne. Nous nous demanderons quels composants sont nécessaires pour pouvoir faire fonctionner un programmme.
+      </p>
+    </section>
+
+    <!-- Introduction -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">Problématique</h2>
+      <p class="text-gray-700 text-justify leading-7">
+        <b>« Nous voulons exécuter un programme simple : mesurer une température avec un capteur et, si elle dépasse un seuil, allumer un ventilateur. Comment pouvons-nous concevoir un système capable de faire cela ? »</b>
+      </p>
+    </section>
+
+    <!-- Étapes de construction -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">Étape 1 : Où stocker le programme ?</h2>
+      <p class="text-gray-700 text-justify leading-7">
+        Nous voulons exécuter un programme simple : mesurer une température avec un capteur et, si elle dépasse un seuil, allumer un ventilateur. La première étape consiste à stocker ce programme. Une mémoire non-volatile, comme une mémoire Flash, est idéale pour cet usage car elle conserve les données même après une coupure d’alimentation.
+      </p>
+      <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
+        <p class="text-gray-700 text-justify leading-7">
+          <b>Mémoire volatile :</b> La mémoire volatile (comme la RAM) est utilisée pour stocker des données temporaires. Elle perd son contenu dès qu’il n’y a plus d’alimentation électrique.
+        </p>
+        <p class="text-gray-700 text-justify leading-7 mt-2">
+          <b>Mémoire non-volatile :</b> La mémoire non-volatile (comme la Flash) conserve les données même après une coupure de courant, ce qui est idéal pour stocker des programmes ou des configurations permanentes.
+        </p>
+      </div>
+      <div class="mt-6">
+        <img src="images/module3/Capture d’écran 2025-01-22 à 14.50.49.png" alt="Schéma de mémoire Flash" class="rounded shadow-md mx-auto">
+        <p class="text-gray-500 text-center text-sm mt-2">Ajout d'une mémoire Flash dans l'architecture.</p>
+      </div>
+    </section>
+
+    <!-- Problématique 2 -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">Étape 2 : Comment lire et exécuter le programme ?</h2>
+      <p class="text-gray-700 text-justify leading-7">
+        Pour exécuter le programme stocké en mémoire Flash, un composant permettant de traiter l'information est nécessaire : la CPU (Central Processing Unit). La CPU est responsable de lire les instructions, de les décoder, et de les exécuter pour réaliser les actions programmées.
+      </p>
+      <br>
+      <p class="text-gray-700 text-justify leading-7">
+        C'est la CPU qu'on appele aussi carte mère. C'est l'élément central d'un microcontrôleur.
+      </p>
+      <div class="mt-6">
+        <img src="images/module3/Capture d’écran 2025-01-22 à 14.50.56.png" alt="Schéma de la CPU" class="rounded shadow-md mx-auto">
+        <p class="text-gray-500 text-center text-sm mt-2">Ajout d'une CPU dans l'architecture.</p>
+      </div>
+    </section>
+
+    <!-- Problématique 3 -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">Étape 3 : Comment faire communiquer la CPU et la mémoire ?</h2>
+      <p class="text-gray-700 text-justify leading-7">
+        La communication entre le CPU et la mémoire Flash s’effectue à l’aide d’un bus de données. Ce bus joue le rôle d’une voie de communication permettant :
+        <ul class="list-disc list-inside mt-4 text-gray-700">
+          <li>Au CPU d’envoyer des adresses à la mémoire pour indiquer quelles instructions lire.</li>
+          <li>À la mémoire de renvoyer les données demandées au CPU.</li>
+        </ul>
+      </p>
+      <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
+        <p class="text-gray-700 text-justify leading-7">
+          <b>Qu’est-ce qu’une adresse ?</b><br>
+          Une adresse est un identifiant unique permettant de localiser une donnée ou une instruction dans la mémoire. Elle fonctionne comme un numéro de maison dans une rue : elle indique précisément où une information est stockée dans la mémoire Flash ou RAM. Une adresse est souvent représentée sous forme héxadécimale.
+        </p>
+        <p class="text-gray-700 text-justify leading-7 mt-2">
+          <b>Utilité de l’adresse :</b><br>
+          Lorsque la CPU doit lire une instruction ou une donnée, elle envoie l’adresse correspondante à la mémoire via le bus de données. La mémoire utilise cette adresse pour localiser l’information demandée et la renvoyer au CPU.
+        </p>
+      </div>
+      <div class="mt-6">
+        <img src="images/module3/Capture d’écran 2025-01-22 à 14.51.02.png" alt="Schéma du bus de données" class="rounded shadow-md mx-auto">
+        <p class="text-gray-500 text-center text-sm mt-2">Ajout d'un bus de données.</p>
+      </div>
+    </section>
+
+    <!-- Problématique 4 -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">Étape 4 : Synchronisation et ajout d’une horloge</h2>
+      <p class="text-gray-700 text-justify leading-7">
+        Pour que la communication sur le bus soit fiable, chaque transfert doit être cadencé. L’horloge système fournit un signal périodique qui définit le rythme auquel les composants communiquent. Ce signal garantit que :
+        <ul class="list-disc list-inside mt-4 text-gray-700">
+          <li><b>La CPU et la mémoire travaillent en harmonie :</b> la CPU envoie des commandes au bon moment, et la mémoire répond quand elle est prête.</li>
+          <li><b>Chaque étape du transfert se déroule dans un cycle défini :</b> l’envoi d’une adresse, la localisation des données, et leur retour au CPU.</li>
+        </ul>
+      </p>
+      <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
+        <p class="text-gray-700 text-justify leading-7">
+          <b>Composant générant un signal d’horloge :</b><br>
+          Le signal d’horloge est généralement produit par un oscillateur, qui est un circuit électronique capable de générer une onde périodique. Il établit le rythme des cycles d’horloge dans le système. Les oscillateurs les plus couramment utilisés sont :
+        </p>
+        <ul class="list-disc list-inside mt-4 text-gray-700">
+          <li><b>Oscillateurs à quartz :</b> Ces oscillateur utilisent les propriétés piézoélectrique d’un cristal de quartz pour produire une fréquence précise et stable.</li>
+          <li><b>Oscillateurs RC :</b> Ces oscillateurs utilisent un circuit RC résonnat pour générer un signal d’horloge. Ils sont économiques mais moins précis que les oscillateurs à quartz.</li>
+          <li><b>Oscillateurs MEMS </b> (Micro-Electro-Mechanical Systems) : Ces oscillateurs mécaniques sont conçus pour des applications avancées demandant des dimensions très réduites et une faible consommation énergétique.</li>
+        </ul>
+      </div>
+      <div class="mt-6">
+        <img src="images/module3/Capture d’écran 2025-01-22 à 14.51.06.png" alt="Schéma de l'horloge" class="rounded shadow-md mx-auto">
+        <p class="text-gray-500 text-center text-sm mt-2">Ajout d'une horloge.</p>
+      </div>
+    </section>
+
+    <!-- Problématiques 5 -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">Étape 5 : Où stocker temporairement les données ?</h2>
+      <p class="text-gray-700 text-justify leading-7">
+        Certaines données doivent être accessibles immédiatement, par exemple la valeur d’un capteur ou le résultat intermédiaire d’un calcul. Pour cela, nous utilisons la mémoire RAM (Random Access Memory). Contrairement à la mémoire Flash, la RAM est une mémoire volatile : elle perd son contenu dès que l’alimentation est coupée. Cependant, elle offre un accès beaucoup plus rapide pour les données temporaires.
+      </p>
+    
+      <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
+        <p class="text-gray-700 text-justify leading-7">
+          <b>Organisation de la RAM : la pile et le tas</b><br>
+          La RAM est divisée en deux zones principales :
+        </p>
+        <ul class="list-disc list-inside mt-4 text-gray-700">
+          <li><b>La pile (stack) :</b> Utilisée pour stocker les variables locales et les adresses de retour lors des appels de fonctions. La pile fonctionne en mode LIFO (Last In, First Out), ce qui signifie que la dernière donnée ajoutée est la première à être retirée. La gestion de la pile est automatique et rapide, mais elle est limitée en taille.</li>
+          <li><b>Le tas (heap) :</b> Une zone de mémoire utilisée pour les allocations dynamiques, comme la création de structures ou d’objets complexes à l'exécution. Contrairement à la pile, la gestion du tas est manuelle et nécessite de libérer la mémoire après utilisation pour éviter des fuites. En langage C, vous pouvez gérer dynamiquement la mémoire du tas à l’aide des fonctions <code>malloc()</code> (pour allouer de la mémoire) et <code>free()</code> (pour libérer cette mémoire une fois qu’elle n’est plus utilisée). Par exemple :
+            <pre class="bg-gray-900 rounded p-4 text-white text-sm overflow-x-auto">
+              <code class="language-c">// Exemple d'utilisation du tas en C
+    int* tableau = (int*)malloc(10 * sizeof(int));  // Allouer de la mémoire pour un tableau de 10 entiers
+    if (tableau == NULL) {
+        // Gérer une éventuelle erreur d'allocation
+        printf("Échec de l'allocation mémoire.\n");
+    }
+    free(tableau);  // Libérer la mémoire lorsque vous avez fini de l'utiliser
+              </code>
+            </pre>
+          </li>
+        </ul>
+      </div>
+    
+      <div class="mt-6">
+        <img src="images/module3/Capture d’écran 2025-01-22 à 14.51.10.png" alt="Schéma de la RAM, pile et tas" class="rounded shadow-md mx-auto">
+        <p class="text-gray-500 text-center text-sm mt-2">Organisation de la RAM : pile et tas.</p>
+      </div>
+    </section>
+
+    <!-- Problématiques 6 -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">Étape 6 : Les registres, encore plus rapides que la RAM</h2>
+      <p class="text-gray-700 text-justify leading-7">
+        Bien que la RAM offre un accès rapide pour les données temporaires, il existe un niveau encore plus performant : les registres. Ces derniers sont intégrés directement dans le processeur (CPU) et constituent la mémoire la plus rapide disponible dans un microcontrôleur.
+      </p>
+      
+      <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
+        <p class="text-gray-700 text-justify leading-7">
+          <b>Qu’est-ce qu’un registre ?</b><br>
+          Un registre est une petite unité de stockage située directement à l’intérieur du CPU. Il est conçu pour stocker les données en cours de traitement ou les résultats intermédiaires des calculs. Sa proximité avec l’unité de traitement en fait la mémoire la plus rapide, avec un accès immédiat en un seul cycle d’horloge.
+        </p>
+      </div>
+    
+      <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
+        <p class="text-gray-700 text-justify leading-7">
+          <b>Types de registres et leurs rôles :</b>
+        </p>
+        <ul class="list-disc list-inside mt-4 text-gray-700">
+          <li>
+            <b>Registres généraux :</b> Utilisés pour stocker des données temporaires nécessaires aux calculs et aux instructions en cours d'exécution.
+          </li>
+          <li>
+            <b>Registres spécialisés :</b> Ils ont des fonctions spécifiques, comme :
+            <ul class="list-disc ml-6 mt-2">
+              <li><b>Le compteur de programme (PC) :</b> Contient l’adresse de la prochaine instruction à exécuter.</li>
+              <li><b>Le registre d’état (FLAGS) :</b> Indique les résultats d’opérations logiques ou arithmétiques (exemple : si le résultat est nul ou si une opération a généré un dépassement).</li>
+              <li><b>Le pointeur de pile (SP) :</b> Maintient une trace de l’adresse actuelle en haut de la pile.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    
+      <p class="text-gray-700 text-justify leading-7 mt-6">
+        Les registres permettent de réduire le temps d’exécution des instructions en éliminant la nécessité d’accéder à la RAM pour les données fréquemment utilisées. Ils jouent un rôle crucial dans les boucles de calcul, les algorithmes d’optimisation, et les interruptions système.
+      </p>
+    
+      <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
+        <p class="text-gray-700 text-justify leading-7">
+          <b>Limites des registres :</b><br>
+          Malgré leur rapidité, les registres ont une capacité très limitée. Dans un microcontrôleur classique, leur nombre est généralement compris entre 8 et 32 registres, chacun ayant une taille typique de 8 à 32 bits. Cette contrainte impose une gestion optimale des ressources, souvent automatisée par le compilateur.
+        </p>
+      </div>
+    
+      <div class="mt-6">
+        <img src="images/module3/Capture d’écran 2025-01-22 à 14.51.14.png" alt="Schéma des registres dans un CPU" class="rounded shadow-md mx-auto">
+        <p class="text-gray-500 text-center text-sm mt-2">Les registres : l’accès le plus rapide dans le CPU.</p>
+      </div>
+    </section>
+
+    <!-- Problématique 7 -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">Étape 7 : Interaction avec le monde extérieur</h2>
+      <p class="text-gray-700 text-justify leading-7">
+        Un microcontrôleur n’est pas utile sans la capacité d’interagir avec son environnement. Pour cela, il utilise des broches spéciales appelées GPIO (<b>General Purpose Input/Output</b>). Ces broches permettent de lire des signaux provenant de capteurs ou d'envoyer des commandes à des dispositifs externes comme des LEDs, des moteurs ou des boutons.
+      </p>
+    
+      <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
+        <p class="text-gray-700 text-justify leading-7">
+          <b>Qu’est-ce qu’un GPIO ?</b><br>
+          Les GPIO sont des broches configurables qui peuvent fonctionner soit en mode entrée, soit en mode sortie :
+        </p>
+        <ul class="list-disc list-inside mt-4 text-gray-700">
+          <li>
+            <b>En mode entrée :</b> La broche lit l’état d’un signal externe, comme l’appui sur un bouton ou la valeur d’un capteur. Par exemple, un capteur de température pourrait transmettre une valeur analogique ou numérique à un GPIO.
+          </li>
+          <li>
+            <b>En mode sortie :</b> La broche envoie un signal pour contrôler un périphérique externe, comme allumer une LED ou piloter un moteur.
+          </li>
+        </ul>
+      </div>
+    
+      <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
+        <p class="text-gray-700 text-justify leading-7">
+          <b>Configuration des GPIO :</b><br>
+          Chaque GPIO doit être configuré avant utilisation :
+        </p>
+        <ul class="list-disc list-inside mt-4 text-gray-700">
+          <li>
+            <b>Mode :</b> Entrée ou sortie.
+          </li>
+          <li>
+            <b>État initial :</b> Par exemple, un GPIO configuré en sortie peut démarrer à l’état bas (LOW) ou haut (HIGH).
+          </li>
+          <li>
+            <b>Pull-up/Pull-down :</b> Lorsque le GPIO est en mode entrée, des résistances internes (pull-up ou pull-down) peuvent être activées pour éviter des signaux flottants ou indéterminés.
+          </li>
+        </ul>
+        <p class="text-gray-700 text-justify mt-2">
+          En langage C, la configuration et l’utilisation des GPIO se font souvent via des registres spécifiques du microcontrôleur. Voici un exemple d’activation d’un GPIO en mode sortie pour allumer une LED :
+        </p>
+        <pre class="bg-gray-900 rounded p-4 text-white text-sm overflow-x-auto">
+          <code class="language-c">// Exemple de configuration d'un GPIO en mode sortie
+    #define GPIO_PIN 5 // Numéro de la broche
+    
+    // Configurer la broche GPIO en mode sortie
+    GPIO_DIR |= (1 << GPIO_PIN);  // Définir la direction (1 = sortie)
+    
+    // Allumer la LED connectée à la broche
+    GPIO_SET |= (1 << GPIO_PIN);  // Mettre la broche à l'état haut (HIGH)
+    
+    // Éteindre la LED
+    GPIO_CLR |= (1 << GPIO_PIN);  // Mettre la broche à l'état bas (LOW)
+          </code>
+        </pre>
+      </div>
+    
+      <div class="mt-6">
+        <img src="images/module3/Capture d’écran 2025-01-22 à 14.51.19.png" alt="Schéma des GPIO" class="rounded shadow-md mx-auto">
+        <p class="text-gray-500 text-center text-sm mt-2">Illustration de l’utilisation des GPIO pour interagir avec des dispositifs externes.</p>
+      </div>
+    </section>
+
+    <!-- Problématique 8 -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">Étape 8 : Gestion des délais et coordination des actions</h2>
+      <p class="text-gray-700 text-justify leading-7">
+        Les microcontrôleurs doivent souvent exécuter des actions à des moments précis ou sur une durée déterminée. Par exemple, lire un capteur toutes les 10 millisecondes ou activer un moteur pendant 5 secondes. Pour répondre à ces besoins, les microcontrôleurs utilisent des composants appelés <b>timers</b>.
+      </p>
+    
+      <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
+        <p class="text-gray-700 text-justify leading-7">
+          <b>Qu’est-ce qu’un timer ?</b><br>
+          Un timer est un périphérique interne du microcontrôleur capable de mesurer le temps écoulé, générer des délais, ou déclencher des événements périodiques. Il fonctionne en incrémentant un compteur à chaque cycle d’horloge ou à une fréquence spécifique définie par un prescaler.
+        </p>
+      </div>
+    
+      <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
+        <p class="text-gray-700 text-justify leading-7">
+          <b>Applications des timers :</b>
+        </p>
+        <ul class="list-disc list-inside mt-4 text-gray-700">
+          <li>
+            <b>Génération de délais :</b> Les timers peuvent créer des pauses précises, par exemple attendre 500 ms avant d’éteindre une LED.
+          </li>
+          <li>
+            <b>Exécution périodique :</b> Lire un capteur à intervalles réguliers ou envoyer des signaux à une fréquence déterminée.
+          </li>
+          <li>
+            <b>Mesure de durée :</b> Calculer le temps écoulé entre deux événements, par exemple mesurer la période d’un signal entrant.
+          </li>
+        </ul>
+      </div>
+    
+      <p class="text-gray-700 text-justify leading-7 mt-6">
+        En langage C, les timers sont configurés via des registres spécifiques du microcontrôleur. Voici un exemple simple de configuration d’un timer pour générer une interruption toutes les 500 ms :
+      </p>
+    
+      <pre class="bg-gray-900 rounded p-4 text-white text-sm overflow-x-auto">
+        <code class="language-c">// Exemple de configuration d'un timer pour une interruption périodique
+    #define TIMER_PRESCALER 64  // Prescaler pour diviser la fréquence d'horloge
+    #define TIMER_COUNT 31250   // Valeur pour 500 ms avec une horloge de 16 MHz
+    
+    // Configurer le timer
+    TCCR1B |= (1 << WGM12);     // Mode CTC (Clear Timer on Compare Match)
+    TCCR1B |= (1 << CS11) | (1 << CS10);  // Prescaler 64
+    OCR1A = TIMER_COUNT;        // Définir la valeur de comparaison
+    
+    // Activer l'interruption
+    TIMSK1 |= (1 << OCIE1A);    // Activer l'interruption du timer
+    
+    // Routine d'interruption
+    ISR(TIMER1_COMPA_vect) {
+        // Action périodique, par exemple allumer/éteindre une LED
+        PORTB ^= (1 << PB0);
+    }
+        </code>
+      </pre>
+    
+      <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
+        <p class="text-gray-700 text-justify leading-7">
+          <b>Principales notions à retenir :</b>
+        </p>
+        <ul class="list-disc list-inside mt-4 text-gray-700">
+          <li>
+            <b>Prescaler :</b> Divise la fréquence d’horloge pour ajuster la vitesse du timer.
+          </li>
+          <li>
+            <b>Mode CTC :</b> Réinitialise le compteur lorsque la valeur définie est atteinte, utile pour les tâches périodiques.
+          </li>
+          <li>
+            <b>Interruptions :</b> Les timers déclenchent des interruptions, permettant au CPU d’exécuter des tâches spécifiques à des moments précis sans bloquer le reste du programme.
+          </li>
+        </ul>
+      </div>
+    
+      <div class="mt-6">
+        <img src="images/module3/Capture d’écran 2025-01-22 à 14.51.25.png" alt="Schéma d'utilisation d'un timer" class="rounded shadow-md mx-auto">
+        <p class="text-gray-500 text-center text-sm mt-2">Illustration d’un timer utilisé pour des tâches périodiques.</p>
+      </div>
+    </section>
+
+    <!-- Problématique 9 -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">Étape 9 : Gestion des tâches multiples avec les interruptions</h2>
+      <p class="text-gray-700 text-justify leading-7">
+        Les microcontrôleurs doivent souvent gérer plusieurs tâches en parallèle, comme lire un capteur, contrôler un moteur, et communiquer avec d’autres périphériques. Pour répondre à ces besoins sans bloquer le fonctionnement global, les microcontrôleurs utilisent un mécanisme appelé <b>interruption</b>.
+      </p>
+    
+      <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
+        <p class="text-gray-700 text-justify leading-7">
+          <b>Qu’est-ce qu’une interruption ?</b><br>
+          Une interruption est un signal envoyé au CPU pour lui indiquer qu’un événement externe ou interne nécessite une attention immédiate. Lorsqu’une interruption est déclenchée, le CPU suspend l’exécution de son programme principal pour traiter l’événement associé, puis reprend là où il s’était arrêté.
+        </p>
+      </div>
+    
+      <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
+        <p class="text-gray-700 text-justify leading-7">
+          <b>Exemples d’interruptions :</b>
+        </p>
+        <ul class="list-disc list-inside mt-4 text-gray-700">
+          <li><b>Interruption externe :</b> Déclenchée par un événement physique, comme l’appui sur un bouton ou un signal provenant d’un capteur.</li>
+          <li><b>Interruption de timer :</b> Utilisée pour exécuter une tâche périodique, comme lire un capteur toutes les 10 millisecondes.</li>
+          <li><b>Interruption de communication :</b> Déclenchée lorsqu’une donnée est reçue ou envoyée via un protocole, comme UART ou SPI.</li>
+        </ul>
+      </div>
+    
+      <p class="text-gray-700 text-justify leading-7 mt-6">
+        Lorsqu’une interruption se produit, le microcontrôleur exécute une routine de gestion d’interruption (<b>ISR</b> : Interrupt Service Routine). Cette routine est un petit programme dédié à traiter l’événement correspondant. Voici un exemple simple :
+      </p>
+    
+      <pre class="bg-gray-900 rounded p-4 text-white text-sm overflow-x-auto">
+        <code class="language-c">// Exemple de gestion d'interruption avec un bouton
+    #define BUTTON_PIN 2 // Broche du bouton
+    #define LED_PIN 5    // Broche de la LED
+    
+    // Initialisation des interruptions
+    void setup() {
+        pinMode(BUTTON_PIN, INPUT_PULLUP); // Configurer le bouton en entrée avec résistance pull-up
+        pinMode(LED_PIN, OUTPUT);         // Configurer la LED en sortie
+    
+        attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), toggleLED, FALLING); // Associer l'interruption
+    }
+    
+    // Routine d'interruption : bascule l'état de la LED
+    void toggleLED() {
+        digitalWrite(LED_PIN, !digitalRead(LED_PIN)); // Inverser l'état de la LED
+    }
+    
+    void loop() {
+        // Programme principal : reste libre pour d'autres tâches
+    }
+        </code>
+      </pre>
+    
+      <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
+        <p class="text-gray-700 text-justify leading-7">
+          <b>Avantages des interruptions :</b>
+        </p>
+        <ul class="list-disc list-inside mt-4 text-gray-700">
+          <li><b>Réactivité :</b> Le CPU peut réagir immédiatement à un événement important, sans attendre la fin d’un processus en cours.</li>
+          <li><b>Efficacité :</b> Le programme principal reste libre pour exécuter d’autres tâches pendant que l’interruption est en veille.</li>
+          <li><b>Simplicité :</b> Les interruptions simplifient la gestion des événements asynchrones, comme des signaux imprévisibles.</li>
+        </ul>
+      </div>
+    
+      <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
+        <p class="text-gray-700 text-justify leading-7">
+          <b>Précautions à prendre :</b>
+        </p>
+        <ul class="list-disc list-inside mt-4 text-gray-700">
+          <li><b>Temps d’exécution :</b> Une routine d’interruption doit être rapide pour éviter de bloquer d’autres interruptions importantes.</li>
+          <li><b>Priorité :</b> Si plusieurs interruptions se produisent en même temps, leur gestion est basée sur une hiérarchie de priorités.</li>
+          <li><b>Risques de conflits :</b> L’accès simultané à des ressources partagées (comme des variables globales) doit être géré pour éviter des comportements imprévisibles.</li>
+        </ul>
+      </div>
+    
+      <div class="mt-6">
+        <img src="images/module3/Capture d’écran 2025-01-22 à 14.51.29.png" alt="Schéma des interruptions" class="rounded shadow-md mx-auto">
+        <p class="text-gray-500 text-center text-sm mt-2">Illustration d’un système d’interruption dans un microcontrôleur.</p>
+      </div>
+    </section>
+    
+  </main>
+
+  <!-- Pied de page -->
+  <footer class="bg-gray-800 text-white text-center p-4 mt-10">
+    <p>&copy; 2025 - Formation Microcontrôleurs, Eliot Morard.</p>
+  </footer>
+
+</body>
+</html>
