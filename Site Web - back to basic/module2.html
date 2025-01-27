@@ -36,7 +36,7 @@
     <section class="mb-10">
       <h2 class="text-2xl font-semibold text-blue-600 mb-4">Opérations sur les bits : Les bases indispensables</h2>
       <p class="text-gray-700 text-justify leading-7">
-        En programmation C, les opérations sur les bits sont essentielles pour manipuler directement les registres ou configurer des périphériques matériels. Ces opérations permettent d'activer, désactiver ou basculer des bits spécifiques dans un registre. Voici les trois opérations fondamentales et leur utilisation typique :
+        En programmation C, les opérations sur les bits sont la base pour manipuler directement les registres ou configurer des périphériques matériels. Ces opérations permettent d'activer, désactiver ou basculer des bits spécifiques dans un registre. Voici les trois opérations fondamentales et leur utilisation typique avec des exemples :
       </p>
 
       <!-- Opération : Mettre un bit à 1 -->
@@ -47,7 +47,7 @@
         </pre>
         <p class="text-gray-700 text-justify mt-2">
           Cette opération utilise l'opérateur OR bit à bit (<code>|=</code>) pour activer un bit à une position donnée. 
-          Par exemple, si <code>position = 3</code>, le troisième bit du registre sera mis à 1, sans affecter les autres bits.
+          Par exemple, si <code>position = 3</code>, le troisième bit du registre sera mis à 1, sans affecter les autres bits car nous utilisons l'opérateur OR.
         </p>
       </div>
 
@@ -59,7 +59,7 @@
         </pre>
         <p class="text-gray-700 text-justify mt-2">
           Ici, l'opérateur AND bit à bit (<code>&=</code>) est combiné avec un complément (<code>~</code>) pour désactiver 
-          un bit spécifique. Par exemple, si <code>position = 3</code>, le troisième bit sera mis à 0, tandis que les autres bits restent inchangés.
+          un bit spécifique. Cela permet de créer un masque composé en majorité de 0 et avec un 1 pour le bit d'intérêt. Par exemple, si <code>position = 3</code>, le troisième bit sera mis à 0, tandis que les autres bits restent inchangés.
         </p>
       </div>
 
@@ -71,7 +71,7 @@
         </pre>
         <p class="text-gray-700 text-justify mt-2">
           L'opérateur XOR bit à bit (<code>^=</code>) permet d'inverser l'état d'un bit. Si le bit est 0, il devient 1 ; 
-          s'il est 1, il devient 0. Par exemple, si <code>position = 3</code>, le troisième bit du registre sera inversé.
+          s'il est 1, il devient 0. On dit parfois que l'on "toggle" le bit. Par exemple, si <code>position = 3</code>, le troisième bit du registre sera inversé.
         </p>
       </div>
     </section>
@@ -80,7 +80,7 @@
     <section class="mb-10">
       <h2 class="text-2xl font-semibold text-blue-600 mb-4">Manipulation des registres en C</h2>
       <p class="text-gray-700 text-justify leading-7">
-        Après avoir compris les bases des opérations sur les bits, nous pouvons maintenant aborder la manipulation directe des registres en langage C. Ces opérations sont fondamentales pour configurer les périphériques matériels et interagir avec un microcontrôleur.
+        Après avoir compris les bases des opérations sur les bits, nous pouvons maintenant aborder la manipulation directe des registres en langage C. Ces opérations sont le b.a.-ba pour configurer les périphériques matériels et interagir avec un microcontrôleur.
       </p>
       <pre class="rounded overflow-x-auto">
         <code class="language-c">LPC_GPIO_PORT->DIR0 |= (1 << 10);  // Configure la broche P0_10 comme sortie</code>
@@ -92,9 +92,9 @@
     </section>
     <!-- Tutoriels de manipulation des bits -->
 <section class="mb-10">
-  <h2 class="text-2xl font-semibold text-blue-600 mb-4">Manipulation des bits : Tutoriels pratiques</h2>
+  <h2 class="text-2xl font-semibold text-blue-600 mb-4">Manipulation des bits : Exemples</h2>
   <p class="text-gray-700 text-justify leading-7 mb-6">
-    Les microcontrôleurs utilisent des registres pour configurer et contrôler leur fonctionnement. Ces registres sont souvent manipulés à l’aide d’opérations bit à bit, comme définir un bit à 1, le mettre à 0, ou inverser son état. Voici quelques tutoriels pour maîtriser ces opérations.
+    Les microcontrôleurs utilisent des registres pour configurer et contrôler leur fonctionnement. Ces registres sont souvent manipulés à l’aide d’opérations bit à bit, comme définir un bit à 1, le mettre à 0, ou inverser son état. Voici quelques exemple pratique ou l'on utilise <code>#define</code> pour créer un masque dans le but que le code soit plus lisible et donc maintenable.
   </p>
 
   <!-- Mettre un bit à 1 -->
@@ -143,7 +143,7 @@ registre ^= BIT_3;  // Inverse l'état du bit 3
   <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
     <h3 class="text-lg font-semibold text-gray-800">4. Appliquer un masque pour extraire des bits</h3>
     <p class="text-gray-700 text-justify leading-7 mt-2">
-      Pour extraire un groupe de bits, on utilise un masque avec l’opération AND (&), puis on décale les bits extraits à droite si nécessaire.
+      Pour extraire un groupe de bits, on utilise un masque avec l’opération AND (&), puis on décale les bits extraits à droite si nécessaire. Cette opération est très utile lorsque l'on veut suivre l'état d'un bit spécifique, par exemple pour créer un chronomètre rudimentaire.
     </p>
     <pre class="bg-gray-900 rounded p-4 text-white text-sm overflow-x-auto">
       <code class="language-c">// Exemple : Extraire les bits 4 à 6
@@ -157,7 +157,7 @@ int valeur = (registre & MASK) >> 4;  // Extrait et décale les bits 4 à 6
   <div class="mt-6 bg-gray-100 p-4 rounded shadow-md">
     <h3 class="text-lg font-semibold text-gray-800">5. Ajuster dynamiquement plusieurs bits</h3>
     <p class="text-gray-700 text-justify leading-7 mt-2">
-      En combinant plusieurs opérations, on peut activer et désactiver des bits spécifiques dynamiquement.
+      En combinant plusieurs opérations, on peut activer et désactiver des bits spécifiques de manière dynamique.
     </p>
     <pre class="bg-gray-900 rounded p-4 text-white text-sm overflow-x-auto">
       <code class="language-c">// Exemple : Activer les bits 2 et 4
